@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+# Anchor pytest's rootdir at the project root and add it to sys.path, so
+# `import src...` works from any directory and from IDE test runners.
+pythonpath = ["."]
+testpaths = ["tests"]

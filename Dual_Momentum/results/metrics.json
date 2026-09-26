@@ -1,0 +1,595 @@
+{
+  "config": {
+    "paper": "Antonacci (2012, rev. 2016) — Risk Premia Harvesting Through Dual Momentum",
+    "lookback_months": 12,
+    "skip_month": false,
+    "timing": "open",
+    "execution": "signal at the close of the last trading day of month t; entry at the open of the first trading day of month t+1",
+    "cost_bps": 5.0,
+    "modules": {
+      "Equities": {
+        "asset_a": "SPY-US",
+        "asset_b": "ACWX-US",
+        "index_a": "MSCI US",
+        "index_b": "EAFE+ (MSCI ACWI ex US)"
+      },
+      "Credit": {
+        "asset_a": "HYG-US",
+        "asset_b": "IGIB-US",
+        "index_a": "ICE BofA US Cash Pay High Yield",
+        "index_b": "Bloomberg US Intermediate Credit"
+      },
+      "REITs": {
+        "asset_a": "USRT-US",
+        "asset_b": "REM-US",
+        "index_a": "FTSE Nareit Equity REITs",
+        "index_b": "FTSE Nareit Mortgage REITs"
+      },
+      "Stress": {
+        "asset_a": "VGLT-US",
+        "asset_b": "GLD-US",
+        "index_a": "Bloomberg US Long Treasury",
+        "index_b": "Gold (London PM fix)"
+      }
+    },
+    "cash": {
+      "column": "TBILL",
+      "sources": [
+        "BIL-US",
+        "SGOV-US"
+      ],
+      "splice_date": "2020-06-30"
+    },
+    "prices": "FactSet Total Return (Gross): dividends reinvested",
+    "benchmark": "equal-weight 9-asset basket (8 risky assets + T-bills) without momentum (Table 14)"
+  },
+  "strategy": {
+    "cagr": 0.0432,
+    "sharpe_ratio": 0.5171,
+    "max_drawdown": 0.2862,
+    "max_drawdown_duration": 1249,
+    "mar_ratio": 0.1508,
+    "daily_mean_return": 0.0002,
+    "skewness": -1.92,
+    "excess_return": -0.0179,
+    "information_ratio": -0.3106
+  },
+  "benchmark": {
+    "cagr": 0.0619,
+    "sharpe_ratio": 0.7134,
+    "max_drawdown": 0.2489,
+    "max_drawdown_duration": 667,
+    "mar_ratio": 0.2489,
+    "daily_mean_return": 0.0003,
+    "skewness": -1.1951,
+    "excess_return": null,
+    "information_ratio": null
+  },
+  "diagnostics": {
+    "period_start": "2011-12-30",
+    "first_execution": "2012-01-03",
+    "period_end": "2026-09-25",
+    "last_signal": "2026-08-31",
+    "n_days": 3705,
+    "n_signal_months": 177,
+    "years": 14.7,
+    "cash_splice_date": "2020-06-30",
+    "decomposition": {
+      "none": {
+        "worst_month_date": "2020-03",
+        "cagr": 0.0619,
+        "volatility": 0.09,
+        "sharpe_ratio": 0.7134,
+        "sharpe_excess_tbill": 0.5619,
+        "max_drawdown": 0.2489,
+        "mar_ratio": 0.2489,
+        "pct_positive_months": 0.6705,
+        "worst_month": -0.1375,
+        "total_turnover": 1.0
+      },
+      "absolute": {
+        "worst_month_date": "2020-03",
+        "cagr": 0.0329,
+        "volatility": 0.0621,
+        "sharpe_ratio": 0.5522,
+        "sharpe_excess_tbill": 0.3332,
+        "max_drawdown": 0.2227,
+        "mar_ratio": 0.1475,
+        "pct_positive_months": 0.6534,
+        "worst_month": -0.1213,
+        "total_turnover": 37.6667
+      },
+      "relative": {
+        "worst_month_date": "2020-03",
+        "cagr": 0.0763,
+        "volatility": 0.1053,
+        "sharpe_ratio": 0.7519,
+        "sharpe_excess_tbill": 0.6351,
+        "max_drawdown": 0.2862,
+        "mar_ratio": 0.2667,
+        "pct_positive_months": 0.6648,
+        "worst_month": -0.1917,
+        "total_turnover": 37.0
+      },
+      "dual": {
+        "worst_month_date": "2020-03",
+        "cagr": 0.0432,
+        "volatility": 0.0896,
+        "sharpe_ratio": 0.5171,
+        "sharpe_excess_tbill": 0.3771,
+        "max_drawdown": 0.2862,
+        "mar_ratio": 0.1508,
+        "pct_positive_months": 0.6364,
+        "worst_month": -0.1919,
+        "total_turnover": 62.0
+      }
+    },
+    "modules": {
+      "Equities": {
+        "asset_a": "SPY-US",
+        "asset_b": "ACWX-US",
+        "dual": {
+          "worst_month_date": "2020-03",
+          "cagr": 0.0923,
+          "volatility": 0.1507,
+          "sharpe_ratio": 0.6614,
+          "sharpe_excess_tbill": 0.6667,
+          "max_drawdown": 0.3399,
+          "mar_ratio": 0.2715,
+          "pct_positive_months": 0.6818,
+          "worst_month": -0.1319,
+          "total_turnover": 55.0
+        },
+        "relative_only": {
+          "worst_month_date": "2020-03",
+          "cagr": 0.1374,
+          "volatility": 0.1672,
+          "sharpe_ratio": 0.8543,
+          "sharpe_excess_tbill": 0.8778,
+          "max_drawdown": 0.3399,
+          "mar_ratio": 0.4043,
+          "pct_positive_months": 0.6818,
+          "worst_month": -0.131,
+          "total_turnover": 31.0
+        },
+        "worst_month_holding": "SPY-US",
+        "contribution_annual": 0.0249,
+        "absolute_filter_cost_annual": -0.0108,
+        "buy_and_hold_a": {
+          "cagr": 0.1513,
+          "volatility": 0.1651,
+          "max_drawdown": 0.337
+        },
+        "buy_and_hold_b": {
+          "cagr": 0.08,
+          "volatility": 0.1686,
+          "max_drawdown": 0.3535
+        },
+        "switches_per_year": 1.84,
+        "pct_a": 0.7175,
+        "pct_b": 0.1638,
+        "pct_cash": 0.1186,
+        "corr_spy_monthly": 0.7748
+      },
+      "Credit": {
+        "asset_a": "HYG-US",
+        "asset_b": "IGIB-US",
+        "dual": {
+          "worst_month_date": "2020-03",
+          "cagr": 0.046,
+          "volatility": 0.0508,
+          "sharpe_ratio": 0.9104,
+          "sharpe_excess_tbill": 0.6989,
+          "max_drawdown": 0.1625,
+          "mar_ratio": 0.2829,
+          "pct_positive_months": 0.7216,
+          "worst_month": -0.0794,
+          "total_turnover": 39.0
+        },
+        "relative_only": {
+          "worst_month_date": "2020-03",
+          "cagr": 0.044,
+          "volatility": 0.0625,
+          "sharpe_ratio": 0.7205,
+          "sharpe_excess_tbill": 0.5104,
+          "max_drawdown": 0.1625,
+          "mar_ratio": 0.2708,
+          "pct_positive_months": 0.6761,
+          "worst_month": -0.0794,
+          "total_turnover": 25.0
+        },
+        "worst_month_holding": "IGIB-US",
+        "contribution_annual": 0.0116,
+        "absolute_filter_cost_annual": 0.0003,
+        "buy_and_hold_a": {
+          "cagr": 0.0464,
+          "volatility": 0.0773,
+          "max_drawdown": 0.2203
+        },
+        "buy_and_hold_b": {
+          "cagr": 0.0287,
+          "volatility": 0.0523,
+          "max_drawdown": 0.2063
+        },
+        "switches_per_year": 1.29,
+        "pct_a": 0.5876,
+        "pct_b": 0.2938,
+        "pct_cash": 0.1186,
+        "corr_spy_monthly": 0.4962
+      },
+      "REITs": {
+        "asset_a": "USRT-US",
+        "asset_b": "REM-US",
+        "dual": {
+          "worst_month_date": "2020-03",
+          "cagr": -0.0475,
+          "volatility": 0.1894,
+          "sharpe_ratio": -0.1597,
+          "sharpe_excess_tbill": -0.1872,
+          "max_drawdown": 0.7269,
+          "mar_ratio": -0.0654,
+          "pct_positive_months": 0.642,
+          "worst_month": -0.5533,
+          "total_turnover": 79.0
+        },
+        "relative_only": {
+          "worst_month_date": "2020-03",
+          "cagr": 0.007,
+          "volatility": 0.2192,
+          "sharpe_ratio": 0.1436,
+          "sharpe_excess_tbill": 0.1117,
+          "max_drawdown": 0.6686,
+          "mar_ratio": 0.0105,
+          "pct_positive_months": 0.6193,
+          "worst_month": -0.5533,
+          "total_turnover": 45.0
+        },
+        "worst_month_holding": "REM-US",
+        "contribution_annual": -0.0076,
+        "absolute_filter_cost_annual": -0.0154,
+        "buy_and_hold_a": {
+          "cagr": 0.0762,
+          "volatility": 0.1926,
+          "max_drawdown": 0.4438
+        },
+        "buy_and_hold_b": {
+          "cagr": 0.035,
+          "volatility": 0.2466,
+          "max_drawdown": 0.688
+        },
+        "switches_per_year": 2.65,
+        "pct_a": 0.4576,
+        "pct_b": 0.3107,
+        "pct_cash": 0.2316,
+        "corr_spy_monthly": 0.4441
+      },
+      "Stress": {
+        "asset_a": "VGLT-US",
+        "asset_b": "GLD-US",
+        "dual": {
+          "worst_month_date": "2026-06",
+          "cagr": 0.0612,
+          "volatility": 0.1419,
+          "sharpe_ratio": 0.4897,
+          "sharpe_excess_tbill": 0.4145,
+          "max_drawdown": 0.2838,
+          "mar_ratio": 0.2155,
+          "pct_positive_months": 0.5398,
+          "worst_month": -0.117,
+          "total_turnover": 77.0
+        },
+        "relative_only": {
+          "worst_month_date": "2026-06",
+          "cagr": 0.0891,
+          "volatility": 0.1538,
+          "sharpe_ratio": 0.6322,
+          "sharpe_excess_tbill": 0.5779,
+          "max_drawdown": 0.2666,
+          "mar_ratio": 0.3342,
+          "pct_positive_months": 0.5114,
+          "worst_month": -0.117,
+          "total_turnover": 47.0
+        },
+        "worst_month_holding": "GLD-US",
+        "contribution_annual": 0.0174,
+        "absolute_filter_cost_annual": -0.0069,
+        "buy_and_hold_a": {
+          "cagr": 0.0032,
+          "volatility": 0.1317,
+          "max_drawdown": 0.4617
+        },
+        "buy_and_hold_b": {
+          "cagr": 0.0668,
+          "volatility": 0.165,
+          "max_drawdown": 0.4211
+        },
+        "switches_per_year": 2.58,
+        "pct_a": 0.2825,
+        "pct_b": 0.4689,
+        "pct_cash": 0.2486,
+        "corr_spy_monthly": -0.0828
+      }
+    },
+    "module_correlations": {
+      "Equities": {
+        "Equities": 1.0,
+        "Credit": 0.4624,
+        "REITs": 0.4992,
+        "Stress": 0.0072
+      },
+      "Credit": {
+        "Equities": 0.4624,
+        "Credit": 1.0,
+        "REITs": 0.5818,
+        "Stress": 0.1975
+      },
+      "REITs": {
+        "Equities": 0.4992,
+        "Credit": 0.5818,
+        "REITs": 1.0,
+        "Stress": -0.0192
+      },
+      "Stress": {
+        "Equities": 0.0072,
+        "Credit": 0.1975,
+        "REITs": -0.0192,
+        "Stress": 1.0
+      }
+    },
+    "current_positions": {
+      "Equities": "ACWX-US",
+      "Credit": "HYG-US",
+      "REITs": "USRT-US",
+      "Stress": "GLD-US"
+    },
+    "max_drawdown_episode": {
+      "peak": "2020-02-20",
+      "trough": "2020-03-24"
+    },
+    "longest_drawdown": {
+      "peak": "2020-02-20",
+      "recovery": "2025-02-10",
+      "sessions": 1249
+    },
+    "avg_risk_exposure": 0.821,
+    "pct_months_fully_in_tbills": 0.0565,
+    "months_fully_in_tbills": [
+      "2016-02",
+      "2019-01",
+      "2022-08",
+      "2022-09",
+      "2022-10",
+      "2022-11",
+      "2022-12",
+      "2023-01",
+      "2023-03",
+      "2023-04"
+    ],
+    "tbill_cagr": 0.0159,
+    "spy_buy_and_hold": {
+      "cagr": 0.1513,
+      "volatility": 0.1651,
+      "max_drawdown": 0.337
+    },
+    "cost_sensitivity_bps": {
+      "0": {
+        "cagr": 0.0454,
+        "sharpe_ratio": 0.5408,
+        "max_drawdown": 0.2862
+      },
+      "5": {
+        "cagr": 0.0432,
+        "sharpe_ratio": 0.5171,
+        "max_drawdown": 0.2862
+      },
+      "10": {
+        "cagr": 0.041,
+        "sharpe_ratio": 0.4934,
+        "max_drawdown": 0.2862
+      },
+      "20": {
+        "cagr": 0.0366,
+        "sharpe_ratio": 0.4458,
+        "max_drawdown": 0.2862
+      }
+    },
+    "alpha_decay": {
+      "first_half": {
+        "start": "2011-12-30",
+        "end": "2019-05-13",
+        "strategy": {
+          "cagr": 0.0383,
+          "volatility": 0.0634,
+          "return_to_vol": 0.6046,
+          "max_drawdown": 0.109
+        },
+        "benchmark": {
+          "cagr": 0.0551,
+          "volatility": 0.0599,
+          "return_to_vol": 0.919,
+          "max_drawdown": 0.0955
+        },
+        "tbill_cagr": 0.0041
+      },
+      "second_half": {
+        "start": "2019-05-14",
+        "end": "2026-09-25",
+        "strategy": {
+          "cagr": 0.0481,
+          "volatility": 0.1097,
+          "return_to_vol": 0.4382,
+          "max_drawdown": 0.2862
+        },
+        "benchmark": {
+          "cagr": 0.0689,
+          "volatility": 0.1122,
+          "return_to_vol": 0.6137,
+          "max_drawdown": 0.2489
+        },
+        "tbill_cagr": 0.0278
+      }
+    },
+    "annual_returns": {
+      "dual": {
+        "2011": -0.0005,
+        "2012": 0.081,
+        "2013": 0.0537,
+        "2014": 0.0885,
+        "2015": -0.0052,
+        "2016": -0.001,
+        "2017": 0.1235,
+        "2018": -0.0658,
+        "2019": 0.1211,
+        "2020": -0.1223,
+        "2021": 0.0812,
+        "2022": -0.0948,
+        "2023": 0.0029,
+        "2024": 0.1647,
+        "2025": 0.2233,
+        "2026": 0.0467
+      },
+      "none": {
+        "2011": -0.0005,
+        "2012": 0.1066,
+        "2013": 0.0017,
+        "2014": 0.0901,
+        "2015": -0.0255,
+        "2016": 0.0843,
+        "2017": 0.1156,
+        "2018": -0.0303,
+        "2019": 0.1818,
+        "2020": 0.0849,
+        "2021": 0.0937,
+        "2022": -0.1531,
+        "2023": 0.1295,
+        "2024": 0.0834,
+        "2025": 0.1709,
+        "2026": 0.03
+      },
+      "spy": {
+        "2011": 0.0,
+        "2012": 0.1599,
+        "2013": 0.3231,
+        "2014": 0.1346,
+        "2015": 0.0125,
+        "2016": 0.12,
+        "2017": 0.217,
+        "2018": -0.0456,
+        "2019": 0.3122,
+        "2020": 0.1837,
+        "2021": 0.2875,
+        "2022": -0.1817,
+        "2023": 0.2619,
+        "2024": 0.2489,
+        "2025": 0.1772,
+        "2026": 0.14
+      },
+      "tbill": {
+        "2011": 0.0,
+        "2012": -0.0004,
+        "2013": -0.0009,
+        "2014": -0.0007,
+        "2015": -0.0013,
+        "2016": 0.0011,
+        "2017": 0.0069,
+        "2018": 0.0174,
+        "2019": 0.0203,
+        "2020": 0.0044,
+        "2021": 0.0004,
+        "2022": 0.0158,
+        "2023": 0.0512,
+        "2024": 0.0527,
+        "2025": 0.0424,
+        "2026": 0.0268
+      }
+    },
+    "annual_sharpe": {
+      "dual": {
+        "2012": 1.4186,
+        "2013": 0.7835,
+        "2014": 1.7622,
+        "2015": -0.0297,
+        "2016": 0.0204,
+        "2017": 2.5241,
+        "2018": -0.8978,
+        "2019": 2.0626,
+        "2020": -0.5662,
+        "2021": 1.0298,
+        "2022": -1.3422,
+        "2023": 0.0813,
+        "2024": 1.7343,
+        "2025": 1.8991,
+        "2026": 0.5296
+      },
+      "none": {
+        "2012": 1.8321,
+        "2013": 0.0602,
+        "2014": 1.943,
+        "2015": -0.3492,
+        "2016": 1.2185,
+        "2017": 2.9032,
+        "2018": -0.4717,
+        "2019": 3.6668,
+        "2020": 0.5103,
+        "2021": 1.3578,
+        "2022": -1.1604,
+        "2023": 1.3448,
+        "2024": 1.0615,
+        "2025": 1.834,
+        "2026": 0.4859
+      }
+    },
+    "stress_episodes": {
+      "2015-16 correction": {
+        "start": "2015-05-21",
+        "end": "2016-02-11",
+        "dual": -0.031,
+        "none": -0.0729,
+        "spy": -0.1295,
+        "tbill": -0.0008
+      },
+      "Q4 2018": {
+        "start": "2018-09-20",
+        "end": "2018-12-24",
+        "dual": -0.0808,
+        "none": -0.0581,
+        "spy": -0.1934,
+        "tbill": 0.0053
+      },
+      "COVID-19": {
+        "start": "2020-02-19",
+        "end": "2020-03-23",
+        "dual": -0.2828,
+        "none": -0.2464,
+        "spy": -0.337,
+        "tbill": 0.0026
+      },
+      "2022 bear market": {
+        "start": "2022-01-03",
+        "end": "2022-10-12",
+        "dual": -0.1023,
+        "none": -0.2078,
+        "spy": -0.245,
+        "tbill": 0.0075
+      },
+      "2025 tariff shock": {
+        "start": "2025-02-19",
+        "end": "2025-04-08",
+        "dual": -0.0907,
+        "none": -0.0706,
+        "spy": -0.1876,
+        "tbill": 0.0056
+      }
+    },
+    "stale_month_end_closes": {
+      "SPY-US": 1,
+      "ACWX-US": 4,
+      "HYG-US": 3,
+      "IGIB-US": 6,
+      "USRT-US": 0,
+      "REM-US": 4,
+      "VGLT-US": 3,
+      "GLD-US": 0
+    }
+  }
+}

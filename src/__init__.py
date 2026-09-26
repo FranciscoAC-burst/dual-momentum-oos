@@ -1,0 +1,1 @@
+"""Deterministic, vectorized backtesting engine."""
